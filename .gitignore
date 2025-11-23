@@ -1,0 +1,74 @@
+# BoxLang / ColdBox
+runtime/
+.engine/
+.CommandBox/
+
+# Logs
+*.log
+logs/
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+*.code-workspace
+
+# Environment
+.env
+.env.local
+
+# Dependencies
+node_modules/
+bower_components/
+
+# Build outputs
+dist/
+build/
+*.war
+*.zip
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Cache
+.cache/
+*.cache
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.bak
+*.backup
+*_backup
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Application specific
+public/includes/uploads/
+public/includes/temp/
+
+# Sensitive data
+config/local/
+*.key
+*.pem
+*.p12
+credentials.json

@@ -1,0 +1,8 @@
+{
+    "dependencies":{
+        "coldbox":"^8.0.5+33"
+    },
+    "installPaths":{
+        "coldbox":"coldbox/"
+    }
+}

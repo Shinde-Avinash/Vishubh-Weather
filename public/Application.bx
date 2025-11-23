@@ -1,0 +1,53 @@
+class {
+
+	this.name = "Vishubh Weather Forecast";
+	this.sessionManagement = true;
+	this.sessionTimeout = createTimeSpan( 0, 0, 30, 0 );
+	this.setClientCookies = true;
+
+	// Map the root directory to allow access to coldbox and other root-level folders
+	this.mappings[ "/root" ] = getDirectoryFromPath( getCurrentTemplatePath() ).listDeleteAt( listLen( getDirectoryFromPath( getCurrentTemplatePath() ), "\/" ), "\/" );
+	this.mappings[ "/coldbox" ] = this.mappings[ "/root" ] & "/coldbox";
+	this.mappings[ "/handlers" ] = this.mappings[ "/root" ] & "/handlers";
+	this.mappings[ "/models" ] = this.mappings[ "/root" ] & "/models";
+	this.mappings[ "/views" ] = this.mappings[ "/root" ] & "/views";
+	this.mappings[ "/layouts" ] = this.mappings[ "/root" ] & "/layouts";
+	this.mappings[ "/config" ] = this.mappings[ "/root" ] & "/config";
+
+	public boolean function onApplicationStart() {
+		application.cbBootstrap = new coldbox.system.Bootstrap(
+			COLDBOX_CONFIG_FILE = "config.Coldbox",
+			COLDBOX_APP_ROOT_PATH = this.mappings[ "/root" ],
+			COLDBOX_WEB_MAPPING = "/"
+		);
+		application.cbBootstrap.loadColdbox();
+		return true;
+	}
+
+	public boolean function onRequestStart( required string targetPage ) {
+		// Bootstrap Reinit
+		if ( !structKeyExists( application, "cbBootstrap" ) || application.cbBootstrap.isFWReinit() ) {
+			lock name="coldbox.bootstrap_#this.name#" type="exclusive" timeout="5" {
+				onApplicationStart();
+			}
+		}
+		
+		// Process ColdBox Request
+		application.cbBootstrap.onRequestStart( arguments.targetPage );
+		return true;
+	}
+
+	public void function onSessionStart() {
+		if ( structKeyExists( application, "cbBootstrap" ) ) {
+			application.cbBootstrap.onSessionStart();
+		}
+	}
+
+	public void function onSessionEnd( required struct sessionScope, required struct appScope ) {
+		arguments.appScope.cbBootstrap.onSessionEnd( argumentCollection=arguments );
+	}
+
+	public boolean function onMissingTemplate( required string template ) {
+		return application.cbBootstrap.onMissingTemplate( argumentCollection=arguments );
+	}
+}
