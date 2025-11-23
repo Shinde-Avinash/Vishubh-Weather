@@ -1,8 +1,7 @@
-# Vishubh Weather Forecast
+# 🌤️Vishubh Weather Forecast
 
 A modern weather forecast application built with ColdBox framework and BoxLang, providing 7-day weather forecasts for any city worldwide.
-
-![Weather App](clouds_rain.png)
+<img width="1357" height="595" alt="image" src="https://github.com/user-attachments/assets/72578757-4350-4bc6-a159-da4339dba515" />
 
 ## Features
 
